@@ -61,6 +61,25 @@ class Walker{
   void display(){
     for(int i=0; i<this.linesList.size(); i++){
       IntList curr_line = linesList.get(i);
+      /*int modif = 3 * i;
+      int red;
+      int blue;
+      int green;
+      if(modif <= 255){
+        red = modif;
+        blue = 255 - modif;
+      } else {
+        modif = modif % 255;
+        red = modif;
+        blue = 255 - modif;
+      }
+      if(modif <= 126){
+        green = 127 + modif;
+      } else {
+        modif = modif % 126;
+        green = 127 + modif;
+      }
+      stroke(red, green, blue, 50);*/
       line(curr_line.get(0), curr_line.get(1), curr_line.get(2), curr_line.get(3));
     }
   }

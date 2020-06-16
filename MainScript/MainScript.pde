@@ -8,7 +8,7 @@ void setup(){
   fullScreen();
   texasRangers = new ArrayList<Walker>();
   rand = 1;
-  timeStep = 0.01;
+  timeStep = 0.05;
   nbrRangers = 100;
   for(int i=0; i<nbrRangers; i++){
     Walker texasRanger = new Walker(-2, 2);
