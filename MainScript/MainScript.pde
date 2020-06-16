@@ -1,14 +1,14 @@
-// TODO: Add noise to smooth the curve
-
 float rand;
+float timeStep;
 int nbrRangers;
 ArrayList<Walker> texasRangers;
 
 void setup(){
-  frameRate(30);
+  frameRate(15);
   fullScreen();
   texasRangers = new ArrayList<Walker>();
   rand = 1;
+  timeStep = 0.01;
   nbrRangers = 100;
   for(int i=0; i<nbrRangers; i++){
     Walker texasRanger = new Walker(-2, 2);

@@ -4,6 +4,8 @@ class Walker{
   float yPos;
   float xSpeed;
   float ySpeed;
+  float timeX;
+  float timeY;
   boolean inBounds;
   
   Walker(float xs, float ys){
@@ -12,6 +14,8 @@ class Walker{
     this.yPos = 0;
     this.xSpeed = xs;
     this.ySpeed = ys;
+    this.timeX = random(10000);
+    this.timeY = random(10000);
     this.inBounds = true;
   }
   
@@ -26,8 +30,14 @@ class Walker{
         curr_xSpeed = this.xSpeed;
         curr_ySpeed = this.ySpeed;
       } else {
-        curr_xSpeed = this.xSpeed + random(-rand, rand);
-        curr_ySpeed = this.ySpeed + random(-rand, rand);
+        float varX = noise(timeX);
+        float varY = noise(timeY);
+        varX = map(varX, 0, 1, -rand, rand);
+        varY = map(varY, 0, 1, -rand, rand);
+        curr_xSpeed = this.xSpeed + varX;
+        curr_ySpeed = this.ySpeed + varY;
+        timeX += timeStep;
+        timeY += timeStep;
       }
       xPos += curr_xSpeed;
       yPos += curr_ySpeed;
