@@ -1,17 +1,22 @@
+ArrayList<Walker> texasRangers;
 float rand;
 float timeStep;
+int globalBoundaries;
 int nbrRangers;
-ArrayList<Walker> texasRangers;
 
 void setup(){
   frameRate(15);
   fullScreen();
   texasRangers = new ArrayList<Walker>();
-  rand = 1;
-  timeStep = 0.05;
+  rand = 10;
+  //timeStep = 0.01;
+  timeStep = 0.001;
+  globalBoundaries = 600;
   nbrRangers = 100;
   for(int i=0; i<nbrRangers; i++){
-    Walker texasRanger = new Walker(-2, 2);
+    float initSpeedX = random(random(-5, -2), random(2, 5));
+    float initSpeedY = random(random(-5, -2), random(2, 5));
+    Walker texasRanger = new Walker(initSpeedX, initSpeedY);
     texasRangers.add(texasRanger);
   }
   stroke(255, 50);
