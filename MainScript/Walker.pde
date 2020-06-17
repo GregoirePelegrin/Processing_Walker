@@ -8,11 +8,7 @@ class Walker{
   float timeY;
   boolean inBounds;
   
-  ArrayList<IntList> colorsList;
-  
-  float timeRed;
-  float timeGreen;
-  float timeBlue;
+  FloatList hues;
   
   Walker(float xs, float ys){
     this.linesList = new ArrayList<IntList>();
@@ -24,11 +20,8 @@ class Walker{
     this.timeY = random(10000);
     this.inBounds = true;
     
-    this.colorsList = new ArrayList<IntList>();
-    
-    this.timeRed = random(10000);
-    this.timeGreen = random(10000);
-    this.timeBlue = random(10000);
+    this.hues = new FloatList();
+    this.hues.append(random(255));
   }
   
   void update(){
@@ -68,36 +61,17 @@ class Walker{
   
   void display(){
     for(int i=0; i<this.linesList.size(); i++){
-      IntList curr_line = linesList.get(i);
-      if(i == this.colorsList.size()){
-        colorsList.add(colorCreate());
+      if(i == this.hues.size()){
+        float curr_hue = this.hues.get(i-1);
+        curr_hue += 1;
+        if(curr_hue > 255){
+          curr_hue = 0;
+        }
+        this.hues.append(curr_hue);
       }
-      colorChange(colorsList.get(i));
+      stroke(this.hues.get(i), 255, 255, 50);
+      IntList curr_line = linesList.get(i);
       line(curr_line.get(0), curr_line.get(1), curr_line.get(2), curr_line.get(3));
     }
-  }
-  
-  IntList colorCreate(){
-    IntList curr_color = new IntList();
-    float red = noise(this.timeRed);
-    float green = noise(this.timeGreen);
-    float blue = noise(this.timeBlue);
-    red = map(red, 0, 1, 0, 255);
-    green = map(green, 0, 1, 0, 255);
-    blue = map(blue, 0, 1, 0, 255);
-    this.timeRed += timeStep;
-    this.timeGreen += timeStep;
-    this.timeBlue += timeStep;
-    curr_color.append((int)red);
-    curr_color.append((int)green);
-    curr_color.append((int)blue);  
-    return curr_color;
-  }
-  
-  void colorChange(IntList new_color){
-    int red = new_color.get(0);
-    int green = new_color.get(1);
-    int blue = new_color.get(2);
-    stroke(red, green, blue, 50);
   }
 }
