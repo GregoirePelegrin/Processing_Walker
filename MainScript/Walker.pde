@@ -1,5 +1,5 @@
 class Walker{
-  ArrayList<IntList> linesList;
+  ArrayList<PVector> points;
   float xPos;
   float yPos;
   float xSpeed;
@@ -8,10 +8,11 @@ class Walker{
   float timeY;
   boolean inBounds;
   
-  FloatList hues;
+  float hue;
   
   Walker(float xs, float ys){
-    this.linesList = new ArrayList<IntList>();
+    this.points = new ArrayList<PVector>();
+    this.points.add(new PVector(0, 0));
     this.xPos = 0;
     this.yPos = 0;
     this.xSpeed = xs;
@@ -20,18 +21,15 @@ class Walker{
     this.timeY = random(10000);
     this.inBounds = true;
     
-    this.hues = new FloatList();
-    this.hues.append(random(255));
+    this.hue = random(255);
   }
   
   void update(){
     if(this.inBounds){
-      IntList curr_line = new IntList();
+      PVector next_point = new PVector();
       float curr_xSpeed;
       float curr_ySpeed;
-      curr_line.append((int)xPos);
-      curr_line.append((int)yPos);
-      if(this.linesList.size() == 0){
+      if(this.points.size() == 0){
         curr_xSpeed = this.xSpeed;
         curr_ySpeed = this.ySpeed;
       } else {
@@ -46,13 +44,13 @@ class Walker{
         this.timeX += timeStep;
         this.timeY += timeStep;
       }
-      xPos += curr_xSpeed;
-      yPos += curr_ySpeed;
-      curr_line.append((int)xPos);
-      curr_line.append((int)yPos);
+      this.xPos += curr_xSpeed;
+      this.yPos += curr_ySpeed;
+      next_point.x = this.xPos;
+      next_point.y = this.yPos;
       this.xSpeed = curr_xSpeed;
       this.ySpeed = curr_ySpeed;
-      this.linesList.add(curr_line);
+      this.points.add(next_point);
       if(pow(this.xPos,2) + pow(this.yPos,2) > pow(globalBoundaries,2)){
         this.inBounds = false;
       }
@@ -60,18 +58,17 @@ class Walker{
   }
   
   void display(){
-    for(int i=0; i<this.linesList.size(); i++){
-      if(i == this.hues.size()){
-        float curr_hue = this.hues.get(i-1);
-        curr_hue += 1;
-        if(curr_hue > 255){
-          curr_hue = 0;
-        }
-        this.hues.append(curr_hue);
+    float hu = this.hue;
+    beginShape();
+    for(PVector point : points){
+      //stroke(hu, 255, 255, 50);
+      stroke(100, 100, 100, 50);
+      vertex(point.x, point.y);
+      hu += 2;
+      if(hu > 255){
+        hu = 0;
       }
-      stroke(this.hues.get(i), 255, 255, 50);
-      IntList curr_line = linesList.get(i);
-      line(curr_line.get(0), curr_line.get(1), curr_line.get(2), curr_line.get(3));
     }
+    endShape();
   }
 }

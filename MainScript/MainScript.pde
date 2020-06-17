@@ -6,14 +6,14 @@ int nbrRangers;
 
 void setup(){
   frameRate(30);
-  fullScreen();
+  fullScreen(P3D);
   colorMode(HSB);
+  noFill();
   texasRangers = new ArrayList<Walker>();
   rand = 10;
-  //timeStep = 0.01;
   timeStep = 0.001;
   globalBoundaries = 500;
-  nbrRangers = 100;
+  nbrRangers = 200;
   for(int i=0; i<nbrRangers; i++){
     float initSpeedX = random(random(-5, -2), random(2, 5));
     float initSpeedY = random(random(-5, -2), random(2, 5));
